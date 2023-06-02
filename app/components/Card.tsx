@@ -1,60 +1,36 @@
-'use client';
+"use client";
 import {
-	Card,
-	CardHeader,
-	CardBody,
-	Typography,
-} from '@material-tailwind/react';
-import Spinner from './Spinner';
-import { Breed } from '../types';
+    Card,
+    CardHeader,
+    CardBody,
+    Typography
+  } from "@material-tailwind/react";
+import Image from "next/image";
+import figo from "../assets/puppyFigo.jpeg"
 
-type Dog = {
-	image: string;
-	breed: Breed;
-};
+export default function BreedCard() {
+  return (
+    <Card  color='blue-gray'className="mt-[60px] mx-auto w-[300px] md:w-[500px]">
+    <CardHeader className="relative md:h-[500px]">
+      <Image src={figo}  className=""  alt="" />
+    </CardHeader>
+    <CardBody>
+      <Typography variant="h5" className="mb-2">
+        UI/UX Review Check
+      </Typography>
+      <Typography>
+        The place is close to Barceloneta Beach and bus stop just 2 min by walk
+        and near to &quot;Naviglio&quot; where you can enjoy the main night life
+        in Barcelona.
+      </Typography>
+    </CardBody>
+  </Card>
 
-type CardProps = {
-	loading: any,
-	updateDog: (dog: any) => any;
-	dog: Dog;
-};
-
-export default function BreedCard({ dog, updateDog, loading }: CardProps): JSX.Element {
-
-	if(loading) return <Spinner/>
-
-	return (
-
-		<Card
-		shadow
-			color='white'
-			className="mt-10 lg:mt-[60px] mx-auto w-[300px] md:w-[450px] lg:w-[575px]"
-			onClick={() => updateDog(dog.breed.id)}
-		>
-			<CardHeader color='transparent' shadow className="relative h-[200px] md:h-[300px] lg:h-[500px]">
-				<div
-					className="w-full h-full absolute"
-					style={{
-						backgroundImage: `url(${dog.image})`,
-						backgroundSize: 'cover',
-					}}
-				></div>
-			</CardHeader>
-			<CardBody>
-				<Typography variant="h3" className="mb-4 text-center">
-					{dog.breed.name}
-					<p className="text-sm mb-2">{dog.breed.bred_for}</p>
-				</Typography>
-
-				{dog.breed.temperament ? (
-					<Typography variant="h5" className="mb-2">
-						Temperament
-					</Typography>
-				) : (
-					''
-				)}
-				<p className="text-sm mb-3">{dog.breed.temperament}</p>
-			</CardBody>
-		</Card>
-	);
+  )
 }
+
+
+{/* <div className="mt-20">
+<Image className="w-[400px] m-auto" src={figo} alt="" />
+<p className="text-center">Breed Info</p>
+</div> */}
