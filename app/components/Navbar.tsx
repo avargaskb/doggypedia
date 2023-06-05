@@ -26,34 +26,23 @@ export default function Navbar() {
 					<Link href={'/'}>
 						<Image
 							src={'/logo.png'}
-							width={45}
-							height={45}
+							width={30}
+							height={30}
 							alt="logo"
-							className="hover:animate-bounce"
+							className="hover:animate-bounce md:w-[45px]"
 						></Image>
 					</Link>
 					<div className="flex items-center gap-4">
 						<Link href={'/login'}>
-            <Button
-							size="md"
-							color="orange"
-              variant='outlined'
-							className="hidden lg:inline-block "
-						>
-							<span className='text-white opacity-90'>Log In</span>
-						</Button>
-
-            </Link>
-            <Link href={'/signup'}>
-						<Button
-							size="md"
-              variant='outlined'
-							color="orange"
-							className="hidden lg:inline-block"
-						>
-							<span className='text-white opacity-90'>Sign up</span>
-						</Button>
-            </Link>
+							<Button
+								size="md"
+								color="orange"
+								variant="outlined"
+								className="hidden lg:inline-block "
+							>
+								<span className="text-white opacity-90">Log In</span>
+							</Button>
+						</Link>
 
 						<IconButton
 							variant="text"
@@ -96,17 +85,18 @@ export default function Navbar() {
 				</div>
 				<Collapse open={openNav}>
 					<div className="flex flex-row justify-end gap-2 p-1">
-					<Link href={'/login'}>	
-            <Button size="sm" variant='outlined' color="orange" className="mb-2 opacity-80">
-							<span className='text-white opacity-90'>Log In</span>
-						</Button>
+						<Link href={'/login'}>
+							<Button
+								size="sm"
+								variant="outlined"
+								color="orange"
+								className="mb-2 opacity-80"
+							>
+								<span className="text-white opacity-90">Log In</span>
+							</Button>
 						</Link>
-            <Link href={'/signup'}>	
-            <Button size="sm" color="orange" variant='outlined' className="mb-2 opacity-80">
-							<span className='text-white opacity-90'>Sign up</span>
-						</Button>
-            </Link>
-          </div>
+					
+					</div>
 				</Collapse>
 			</Nav>
 		</>
