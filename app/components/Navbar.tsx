@@ -12,10 +12,10 @@ export default function Navbar() {
 					<Link href={'/'}>
 						<Image
 							src={'/logo.png'}
-							width={30}
-							height={30}
+							width={35}
+							height={35}
 							alt="logo"
-							className="hover:animate-bounce md:w-[45px]"
+							className="transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300 md:w-[45px] cursor-pointer"
 						></Image>
 					</Link>
 					<div className="flex items-center gap-4">
