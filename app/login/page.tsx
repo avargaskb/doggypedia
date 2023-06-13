@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react';
-import { useAuth } from '../context/auth.context';
+import { useAuth } from '../../context/auth.context';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import {

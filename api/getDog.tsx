@@ -1,7 +1,8 @@
+
+
 const getDog = async (breedId: any) => {
-	
-	const secret: any = process.env.NEXT_PUBLIC_APIDOG_KEY
-	
+	const secret:any = process.env.NEXT_PUBLIC_APIDOG_KEY;
+
 	const url =
 		!breedId || breedId === 0
 			? 'https://api.thedogapi.com/v1/images/search'
@@ -10,8 +11,7 @@ const getDog = async (breedId: any) => {
 	const res = await fetch(url, {
 		method: 'GET',
 		headers: {
-			'x-api-key':
-				secret,
+			'x-api-key': secret,
 		},
 	});
 	if (!res.ok) {

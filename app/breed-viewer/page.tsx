@@ -1,9 +1,9 @@
 'use client';
 import { useState, useEffect } from 'react';
 import { ThemeProvider } from '@material-tailwind/react';
-import SelectBreed from '../components/Select';
-import BreedCard from '../components/Card';
-import getDog from '../api/getDog';
+import SelectBreed from '../../components/Select';
+import BreedCard from '../../components/Card';
+import getDog from '../../api/getDog';
 
 const initialDog = {
 	image: '',
