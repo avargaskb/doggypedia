@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import { useAuth } from '../context/auth.context';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 import {
 	Card,
 	CardHeader,
@@ -10,31 +11,33 @@ import {
 	Typography,
 	Input,
 	Button,
-   
 } from '@material-tailwind/react';
-import { ExclamationTriangleIcon } from "@heroicons/react/24/solid";
 
 export default function LogIn() {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 	const [error, setError] = useState('');
-	const { logIn} = useAuth();
-    const navigate = useRouter();
+	
+	const { logIn, logInWithGooglePopup} = useAuth();
+	const navigate = useRouter();
 
-    
+	const logInWithGoogle = async () => {
+		await logInWithGooglePopup();
+		navigate.replace('/breed-viewer');
+	};
+
 	const logInHandler = async (e: React.FormEvent<HTMLButtonElement>) => {
 		if (!password || !email) {
 			setError('Email and password needed!');
 			return;
 		}
-			try {
-				await logIn(email, password);
-                navigate.replace('/breed-viewer')
-			} catch (err) {
-				setError('Sorry, incorrect email or password!');
-			}
-			return;
-	
+		try {
+			await logIn(email, password);
+			navigate.replace('/breed-viewer');
+		} catch (err) {
+			setError('Sorry, incorrect email or password!');
+		}
+		return;
 	};
 
 	return (
@@ -50,7 +53,7 @@ export default function LogIn() {
 					</Typography>
 				</CardHeader>
 				<CardBody className="flex flex-col gap-4">
-					{error && <span className='alert'>{error}</span>}
+					{error && <span className="alert">{error}</span>}
 
 					<div className="flex flex-col gap-6">
 						<Input
@@ -81,6 +84,24 @@ export default function LogIn() {
 					>
 						Log In
 					</Button>
+
+					<Button
+						fullWidth
+						variant="outlined"
+						color="orange"
+						className=" mt-4 flex items-center justify-center gap-1 md:gap-4"
+						onClick={logInWithGoogle}
+					>
+						<Image
+							src="/google-icon.png"
+							width={40}
+							height={40}
+							alt="google-logo"
+							className="h-5 w-5"
+						/>
+						Continue with Google
+					</Button>
+
 					<Typography variant="small" className="mt-6 flex justify-center">
 						Don't have an account?
 						<Typography

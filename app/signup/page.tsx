@@ -2,7 +2,6 @@
 import { useState } from 'react';
 import { useAuth } from '../context/auth.context';
 import { useRouter } from 'next/navigation';
-import Image from 'next/image';
 import {
 	Card,
 	CardHeader,
@@ -12,26 +11,39 @@ import {
 	Input,
 	Button,
 } from '@material-tailwind/react';
+import {createUserDocumentFromAuth} from '../../lib/firebase'
 
 export default function SignUp() {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
+	const [displayName, setDisplayName] = useState('');
 	const [error, setError] = useState('');
 
 	const { signUp, currentUser } = useAuth();
 	const navigate = useRouter();
 
+	console.log('Current User:', currentUser);
+
+
 	const registerUser = async (e: React.FormEvent<HTMLButtonElement>) => {
-		if (!password || !email) {
-			setError('Email and password needed!');
+		if (!password || !email || !displayName) {
+			setError('Please fill all inputs!');
 			return;
 		}
 		try {
-			await signUp(email, password);
+			e.preventDefault();
+		const {user}=await signUp(email, password);
+			createUserDocumentFromAuth(user,{displayName});
 			navigate.replace('/breed-viewer');
 		} catch (err: any) {
 			if (err.code === 'auth/email-already-in-use') {
 				setError('Cannot create user, email already in use');
+			}
+			if (err.code === 'auth/invalid-email') {
+				setError('Please enter a valid email');
+			}
+			if (err.code === 'auth/weak-password') {
+				setError('Password should be at least 6 characters');
 			} else {
 				setError('Something went wrong, please try again!');
 			}
@@ -53,6 +65,13 @@ export default function SignUp() {
 				<CardBody className="flex flex-col gap-4">
 					{error && <span className="alert">{error}</span>}
 					<div className="flex flex-col gap-6">
+						<Input
+							color="gray"
+							label="Username"
+							size="lg"
+							value={displayName}
+							onChange={(e) => setDisplayName(e.target.value)}
+						/>
 						<Input
 							color="gray"
 							label="Email"
@@ -79,22 +98,6 @@ export default function SignUp() {
 						onClick={(e) => registerUser(e)}
 					>
 						Sign Up
-					</Button>
-
-					<Button
-						fullWidth
-						variant="outlined"
-						color="orange"
-						className=" mt-4 flex items-center justify-center gap-1 md:gap-4"
-					>
-						<Image
-							src="/google-icon.png"
-							width={40}
-							height={40}
-							alt="google-logo"
-							className="h-5 w-5"
-						/>
-						Continue with Google
 					</Button>
 
 					<Typography variant="small" className="mt-6 flex justify-center">

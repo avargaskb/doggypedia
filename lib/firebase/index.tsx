@@ -1,6 +1,7 @@
 import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
-import {getFirestore} from 'firebase/firestore';
+import {getFirestore, doc, setDoc, getDoc} from 'firebase/firestore';
+
 
 const firebaseConfig = {
 	apiKey: process.env.NEXT_PUBLIC_APIFB_KEY,
@@ -15,3 +16,27 @@ const app = initializeApp(firebaseConfig);
 
 export const auth = getAuth(app);
 export const db = getFirestore(app);
+
+export const createUserDocumentFromAuth = async (
+	userAuth:{displayName:string, email:string, uid:string},
+	additionalInformation = {}
+) => {
+	if (!userAuth) return;
+
+	const userDocRef = doc(db, 'users', userAuth.uid);
+	const userSnapShot = await getDoc(userDocRef);
+
+	if (!userSnapShot.exists()) {
+		const { displayName, email } = userAuth;
+		const createdAt = new Date();
+
+			await setDoc(userDocRef, {
+				displayName,
+				email,
+				createdAt,
+				...additionalInformation,
+			});
+		
+	}
+	return userDocRef;
+};

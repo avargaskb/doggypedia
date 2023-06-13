@@ -6,11 +6,16 @@ import {
 	createUserWithEmailAndPassword,
 	signOut,
 	onAuthStateChanged,
+	signInWithPopup,
+	GoogleAuthProvider,
 } from 'firebase/auth';
-import { doc, getDoc } from 'firebase/firestore';
-
 
 const AuthContext = createContext();
+
+const provider = new GoogleAuthProvider();
+provider.setCustomParameters({
+	prompt: 'select_account',
+});
 
 export function useAuth() {
 	return useContext(AuthContext);
@@ -23,13 +28,13 @@ export function AuthProvider({ children }) {
 
 	const signUp = (email, password) => {
 		return createUserWithEmailAndPassword(auth, email, password);
-		
 	};
 
 	const logIn = (email, password) => {
 		return signInWithEmailAndPassword(auth, email, password);
-		
 	};
+
+	const logInWithGooglePopup = () => signInWithPopup(auth, provider);
 
 	const logOut = () => {
 		return signOut(auth);
@@ -46,6 +51,7 @@ export function AuthProvider({ children }) {
 	const value = {
 		currentUser,
 		logIn,
+		logInWithGooglePopup,
 		signUp,
 		logOut,
 		userInfo,

@@ -1,14 +1,16 @@
 'use client';
 import { useState, useEffect } from 'react';
 import { Select, Option } from '@material-tailwind/react';
-import getBreeds from '../helpers/getBreeds';
+import getBreeds from '../api/getBreeds';
 import Error from './Error';
-import Logo from '../logo.png'
 
-import { Breed } from '../types';
-
+type Breed = {
+	id?: number | undefined;
+	name: string;
+	temperament?: string;
+	bred_for?: string;
+};
 const initialBreeds: Breed[] = [
-
 	{
 		id: 1,
 		name: 'French Poodle',
@@ -22,7 +24,6 @@ const initialBreeds: Breed[] = [
 		name: 'Golden Retriever',
 	},
 ];
-
 
 export default function SelectBreed({ updateDog }: { updateDog: any }) {
 	const [breeds, setBreeds] = useState(initialBreeds);
@@ -50,10 +51,13 @@ export default function SelectBreed({ updateDog }: { updateDog: any }) {
 		<div className="w-[260px] md:w-[350px] lg:w-[475px] mx-auto mt-24 lg:mt-32 mb-20 lg:mb-[80px]">
 			<Select
 				onChange={(value) => handleChange(value)}
-				arrow={<span style={{color:'white'}}>&#x25BD;</span>}
+				arrow={<span style={{ color: 'white' }}>&#x25BD;</span>}
 				color="orange"
 				label="Select Breed"
-				menuProps={{className: ' text-sm md:text-md font-bold  text-gray-600 bg-opacity-80 ' }}
+				menuProps={{
+					className:
+						' text-sm md:text-md font-bold  text-gray-600 bg-opacity-80 ',
+				}}
 				labelProps={{ className: 'text-white' }}
 			>
 				{breeds.map((breed, index) => (
@@ -62,7 +66,7 @@ export default function SelectBreed({ updateDog }: { updateDog: any }) {
 					</Option>
 				))}
 			</Select>
-			<div className='mt-10'>{error && <Error />}</div>
+			<div className="mt-10">{error && <Error />}</div>
 		</div>
 	);
 }

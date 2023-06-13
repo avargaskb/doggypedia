@@ -6,7 +6,14 @@ import {
 	Typography,
 } from '@material-tailwind/react';
 import Spinner from './Spinner';
-import { Breed } from '../types';
+
+
+type Breed = {
+	id?: number| undefined;
+	name: string;
+	temperament?: string;
+	bred_for?: string
+};
 
 type Dog = {
 	image: string;
