@@ -17,12 +17,12 @@ export default function LogIn() {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 	const [error, setError] = useState('');
-	
-	const { logIn, logInWithGooglePopup} = useAuth();
+
+	const { logIn, logInWithGooglePopup, createUserDocumentFromAuth } = useAuth();
 	const navigate = useRouter();
 
 	const logInWithGoogle = async () => {
-		await logInWithGooglePopup();
+		 await logInWithGooglePopup();
 		navigate.replace('/breed-viewer');
 	};
 

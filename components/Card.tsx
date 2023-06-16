@@ -1,18 +1,20 @@
 'use client';
+import { useAuth } from '../context/auth.context';
 import {
 	Card,
 	CardHeader,
 	CardBody,
+	CardFooter,
 	Typography,
+	Button,
 } from '@material-tailwind/react';
 import Spinner from './Spinner';
 
-
 type Breed = {
-	id?: number| undefined;
+	id?: number | undefined;
 	name: string;
 	temperament?: string;
-	bred_for?: string
+	bred_for?: string;
 };
 
 type Dog = {
@@ -21,24 +23,36 @@ type Dog = {
 };
 
 type CardProps = {
-	loading: any,
+	loading: any;
 	updateDog: (dog: any) => any;
 	dog: Dog;
 };
 
-export default function BreedCard({ dog, updateDog, loading }: CardProps): JSX.Element {
+export default function BreedCard({
+	dog,
+	updateDog,
+	loading,
+}: CardProps): JSX.Element {
+	const { favoriteDog } = useAuth();
 
-	if(loading) return <Spinner/>
+	const handleFavorite = (breedName: string) => {
+		favoriteDog(breedName);
+	};
+
+	if (loading) return <Spinner />;
 
 	return (
-
 		<Card
-		shadow
-			color='white'
+			shadow
+			color="white"
 			className="mt-10 lg:mt-[60px] mx-auto w-[300px] md:w-[450px] lg:w-[575px]"
 			onClick={() => updateDog(dog.breed.id)}
 		>
-			<CardHeader color='transparent' shadow className="relative h-[200px] md:h-[300px] lg:h-[500px]">
+			<CardHeader
+				color="transparent"
+				shadow
+				className="relative h-[200px] md:h-[300px] lg:h-[500px]"
+			>
 				<div
 					className="w-full h-full absolute"
 					style={{
@@ -47,7 +61,7 @@ export default function BreedCard({ dog, updateDog, loading }: CardProps): JSX.E
 					}}
 				></div>
 			</CardHeader>
-			<CardBody>
+			<CardBody className='pb-1'>
 				<Typography variant="h3" className="mb-4 text-center">
 					{dog.breed.name}
 					<p className="text-sm mb-2">{dog.breed.bred_for}</p>
@@ -60,8 +74,21 @@ export default function BreedCard({ dog, updateDog, loading }: CardProps): JSX.E
 				) : (
 					''
 				)}
-				<p className="text-sm mb-3">{dog.breed.temperament}</p>
+				<p className="text-sm">{dog.breed.temperament}</p>
 			</CardBody>
+			<CardFooter className="pt-2 flex justify-center">
+				{dog.breed.name !== 'Random' && (
+					<Button
+						variant="outlined"
+						size="sm"
+						color="deep-orange"
+						className='' 
+						onClick={() => handleFavorite(dog.breed.name)}
+					>
+						Select as Favorite Breed
+					</Button>
+				)}
+			</CardFooter>
 		</Card>
 	);
 }

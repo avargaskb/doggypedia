@@ -11,7 +11,8 @@ import {
 	Input,
 	Button,
 } from '@material-tailwind/react';
-import {createUserDocumentFromAuth} from '../../lib/firebase'
+import { createUserDocumentFromAuth } from '../../lib/firebase';
+import { updateProfile } from 'firebase/auth';
 
 export default function SignUp() {
 	const [email, setEmail] = useState('');
@@ -19,11 +20,8 @@ export default function SignUp() {
 	const [displayName, setDisplayName] = useState('');
 	const [error, setError] = useState('');
 
-	const { signUp, currentUser } = useAuth();
+	const { signUp, setUserName } = useAuth();
 	const navigate = useRouter();
-
-	console.log('Current User:', currentUser);
-
 
 	const registerUser = async (e: React.FormEvent<HTMLButtonElement>) => {
 		if (!password || !email || !displayName) {
@@ -32,8 +30,10 @@ export default function SignUp() {
 		}
 		try {
 			e.preventDefault();
-		const {user}=await signUp(email, password);
-			createUserDocumentFromAuth(user,{displayName});
+			const { user } = await signUp(email, password);
+			updateProfile(user, { displayName });
+			setUserName(displayName);
+			createUserDocumentFromAuth(user, { displayName });
 			navigate.replace('/breed-viewer');
 		} catch (err: any) {
 			if (err.code === 'auth/email-already-in-use') {

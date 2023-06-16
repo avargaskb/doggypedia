@@ -1,5 +1,4 @@
 
-
 const getDog = async (breedId: any) => {
 	const secret:any = process.env.NEXT_PUBLIC_APIDOG_KEY;
 

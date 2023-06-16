@@ -16,6 +16,7 @@ const initialDog = {
 export default function BreedViewer() {
 	const [dog, setDog] = useState(initialDog);
 	const [loading, setLoading] = useState(true);
+	
 
 	useEffect(() => {
 		updateDog();

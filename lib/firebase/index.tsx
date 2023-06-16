@@ -1,15 +1,21 @@
 import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
-import {getFirestore, doc, setDoc, getDoc} from 'firebase/firestore';
-
+import {
+	getFirestore,
+	doc,
+	setDoc,
+	getDoc,
+	updateDoc,
+} from 'firebase/firestore';
+import { useAuth } from '@/context/auth.context';
 
 const firebaseConfig = {
 	apiKey: process.env.NEXT_PUBLIC_APIFB_KEY,
 	authDomain: process.env.NEXT_PUBLIC_AUTHDOMAIN,
 	projectId: process.env.NEXT_PUBLIC_PROJECTID,
-	storageBucket:process.env.NEXT_PUBLIC_STORAGEBUCKET,
+	storageBucket: process.env.NEXT_PUBLIC_STORAGEBUCKET,
 	messagingSenderId: process.env.NEXT_PUBLIC_MESSAGINGSENDERID,
-	appId:process.env.NEXT_PUBLIC_APPID,
+	appId: process.env.NEXT_PUBLIC_APPID,
 };
 
 const app = initializeApp(firebaseConfig);
@@ -17,8 +23,9 @@ const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 export const db = getFirestore(app);
 
+
 export const createUserDocumentFromAuth = async (
-	userAuth:{displayName:string, email:string, uid:string},
+	 userAuth: { displayName: string; email: string; uid: string },
 	additionalInformation = {}
 ) => {
 	if (!userAuth) return;
@@ -29,14 +36,29 @@ export const createUserDocumentFromAuth = async (
 	if (!userSnapShot.exists()) {
 		const { displayName, email } = userAuth;
 		const createdAt = new Date();
-
-			await setDoc(userDocRef, {
-				displayName,
-				email,
-				createdAt,
-				...additionalInformation,
-			});
-		
+		const favoriteBreed = '';
+		await setDoc(userDocRef, {
+			displayName,
+			email,
+			createdAt,
+			...additionalInformation,
+			favoriteBreed,
+		});
 	}
+
 	return userDocRef;
+};
+
+
+
+export const updateFavorite = async (userAuth: {uid: string }) => {
+	const { favoriteDog } = useAuth();
+	const userDocRef = doc(db, 'users', userAuth.uid);
+	const data = {
+		favoriteBreed: favoriteDog,
+	};
+	await updateDoc(userDocRef, data);
+
+	return userDocRef;
+	
 };

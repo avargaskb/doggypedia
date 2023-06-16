@@ -1,5 +1,5 @@
 'use client';
-import { createContext, useContext, useState, useEffect, useRef } from 'react';
+import { createContext, useContext, useState, useEffect } from 'react';
 import { auth } from '@/lib/firebase';
 import {
 	signInWithEmailAndPassword,
@@ -23,8 +23,9 @@ export function useAuth() {
 
 export function AuthProvider({ children }) {
 	const [currentUser, setCurrentUser] = useState('');
+	const [userName, setUserName] = useState('');
 	const [loading, setLoading] = useState(true);
-	const userInfo = useRef();
+	const [favoriteBreed, setFavoriteBreed] = useState('');
 
 	const signUp = (email, password) => {
 		return createUserWithEmailAndPassword(auth, email, password);
@@ -40,9 +41,17 @@ export function AuthProvider({ children }) {
 		return signOut(auth);
 	};
 
+	const favoriteDog = (breedName) => {
+		setFavoriteBreed(breedName);
+	};
+	// useEffect(() => {
+	// 	updateFavorite()
+	// }, [favoriteBreed]);
+
 	useEffect(() => {
 		const unsubscribe = onAuthStateChanged(auth, async (user) => {
 			setCurrentUser(user);
+
 			setLoading(false);
 		});
 		return unsubscribe;
@@ -54,7 +63,9 @@ export function AuthProvider({ children }) {
 		logInWithGooglePopup,
 		signUp,
 		logOut,
-		userInfo,
+		favoriteDog,
+		userName,
+		setUserName
 	};
 
 	return (
