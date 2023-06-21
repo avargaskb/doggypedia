@@ -51,14 +51,16 @@ export const createUserDocumentFromAuth = async (
 
 
 
-export const updateFavorite = async (userAuth: {uid: string }) => {
-	const { favoriteDog } = useAuth();
-	const userDocRef = doc(db, 'users', userAuth.uid);
+export const updateFavorite = async(breedName:string, currentUser:any) => {
+	// const { favoriteBreed} = useAuth();
+	const userDocRef = doc(db, 'users', currentUser.uid);
 	const data = {
-		favoriteBreed: favoriteDog,
+		favoriteBreed: breedName,
 	};
 	await updateDoc(userDocRef, data);
-
-	return userDocRef;
 	
 };
+
+export const getFavorite = async()=>{
+
+}

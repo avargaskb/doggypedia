@@ -61,6 +61,7 @@ export default function LogIn() {
 							type="email"
 							label="Email"
 							size="lg"
+							id='email'
 							value={email}
 							onChange={(e) => setEmail(e.target.value)}
 						/>
@@ -68,6 +69,7 @@ export default function LogIn() {
 							color="gray"
 							type="password"
 							label="Password"
+							id='password'
 							size="lg"
 							value={password}
 							onChange={(e) => setPassword(e.target.value)}

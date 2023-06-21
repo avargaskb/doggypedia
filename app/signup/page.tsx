@@ -69,12 +69,14 @@ export default function SignUp() {
 							color="gray"
 							label="Username"
 							size="lg"
+							id='username'
 							value={displayName}
 							onChange={(e) => setDisplayName(e.target.value)}
 						/>
 						<Input
 							color="gray"
 							label="Email"
+							id='email'
 							size="lg"
 							value={email}
 							onChange={(e) => setEmail(e.target.value)}
@@ -83,6 +85,7 @@ export default function SignUp() {
 							color="gray"
 							type="password"
 							label="Password"
+							id='password'
 							size="lg"
 							value={password}
 							onChange={(e) => setPassword(e.target.value)}

@@ -1,4 +1,5 @@
 'use client';
+import { useEffect } from 'react';
 import { useAuth } from '../context/auth.context';
 import {
 	Card,
@@ -9,6 +10,7 @@ import {
 	Button,
 } from '@material-tailwind/react';
 import Spinner from './Spinner';
+import { updateFavorite } from '@/lib/firebase';
 
 type Breed = {
 	id?: number | undefined;
@@ -33,11 +35,20 @@ export default function BreedCard({
 	updateDog,
 	loading,
 }: CardProps): JSX.Element {
-	const { favoriteDog } = useAuth();
+	const { favoriteDog, favoriteBreed, currentUser } = useAuth();
 
 	const handleFavorite = (breedName: string) => {
 		favoriteDog(breedName);
+		updateFavorite(breedName, currentUser)
 	};
+
+	// useEffect(() => {
+	// 	updateFavorite(currentUser);
+	// }, [favoriteBreed]);
+
+	useEffect(() => {
+		console.log(favoriteBreed);
+	}, [favoriteBreed]);
 
 	if (loading) return <Spinner />;
 
@@ -61,7 +72,7 @@ export default function BreedCard({
 					}}
 				></div>
 			</CardHeader>
-			<CardBody className='pb-1'>
+			<CardBody className="pb-1">
 				<Typography variant="h3" className="mb-4 text-center">
 					{dog.breed.name}
 					<p className="text-sm mb-2">{dog.breed.bred_for}</p>
@@ -82,7 +93,7 @@ export default function BreedCard({
 						variant="outlined"
 						size="sm"
 						color="deep-orange"
-						className='' 
+						className=""
 						onClick={() => handleFavorite(dog.breed.name)}
 					>
 						Select as Favorite Breed

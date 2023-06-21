@@ -44,9 +44,7 @@ export function AuthProvider({ children }) {
 	const favoriteDog = (breedName) => {
 		setFavoriteBreed(breedName);
 	};
-	// useEffect(() => {
-	// 	updateFavorite()
-	// }, [favoriteBreed]);
+	
 
 	useEffect(() => {
 		const unsubscribe = onAuthStateChanged(auth, async (user) => {
@@ -63,6 +61,7 @@ export function AuthProvider({ children }) {
 		logInWithGooglePopup,
 		signUp,
 		logOut,
+		favoriteBreed,
 		favoriteDog,
 		userName,
 		setUserName

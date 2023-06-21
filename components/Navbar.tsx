@@ -12,6 +12,7 @@ import Link from 'next/link';
 
 export default function Navbar() {
 	const { currentUser, userName } = useAuth();
+	console.log(currentUser)
 
 	return (
 		<>
