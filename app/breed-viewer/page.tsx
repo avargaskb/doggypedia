@@ -30,6 +30,8 @@ export default function BreedViewer() {
 			setLoading(false);
 		});
 	};
+	if(!dog)
+return <></>
 	return (
 		<>
 			<ThemeProvider>
