@@ -10,14 +10,13 @@ export default function Home() {
 		<div className='h-screen flex items-center justify-center '>
 	
 		<div className="relative h-[300px] w-[275px] md:h-[510px] md:w-[480px] lg:h-[700px] lg:w-[670px] shadow-2xl ">
-			<Image
+			<img
 				className="h-full w-full rounded-xl"
-				width={100}
-				height={100}
 				src="/puppyFigo.jpg"
 				alt="puppy"
 			>
-				</Image>
+				</img>
+
 			<div className="absolute bottom-4 lg:bottom-8 left-2/4 flex w-[calc(100%-2rem)] lg:w-[calc(100%-4rem)] -translate-x-2/4 justify-between rounded-xl border border-white bg-gray-400 py-2 lg:py-6 px-6 shadow-lg shadow-black/5 saturate-200 bg-backdrop-blur-sm bg-opacity-40">
 				<div className="mx-auto">
 					<div
