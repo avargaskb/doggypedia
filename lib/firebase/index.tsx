@@ -7,7 +7,6 @@ import {
 	getDoc,
 	updateDoc,
 } from 'firebase/firestore';
-import { useAuth } from '@/context/auth.context';
 
 const firebaseConfig = {
 	apiKey: process.env.NEXT_PUBLIC_APIFB_KEY,
@@ -25,7 +24,7 @@ export const db = getFirestore(app);
 
 
 export const createUserDocumentFromAuth = async (
-	 userAuth: { displayName: string; email: string; uid: string },
+	userAuth: { displayName: string; email: string; uid: string },
 	additionalInformation = {}
 ) => {
 	if (!userAuth) return;
@@ -49,18 +48,13 @@ export const createUserDocumentFromAuth = async (
 	return userDocRef;
 };
 
-
-
-export const updateFavorite = async(breedName:string, currentUser:any) => {
-	// const { favoriteBreed} = useAuth();
+export const updateFavorite = async (
+	breedName: string,
+	currentUser: { uid: string }
+) => {
 	const userDocRef = doc(db, 'users', currentUser.uid);
 	const data = {
 		favoriteBreed: breedName,
 	};
 	await updateDoc(userDocRef, data);
-	
 };
-
-export const getFavorite = async()=>{
-
-}

@@ -12,7 +12,6 @@ import Link from 'next/link';
 
 export default function Navbar() {
 	const { currentUser, userName } = useAuth();
-	console.log(currentUser)
 
 	return (
 		<>
@@ -28,17 +27,26 @@ export default function Navbar() {
 						></Image>
 					</Link>
 					<div className="flex items-center justify-between gap-4">
-						<div className='inline-flex '>
-						{currentUser?.displayName && (
-							<>
-								<IconButton variant="text" color="white" className='h-5 w-5 my-auto'>
-									<UserIcon className="h-4 w-4 "  />
-								</IconButton>
-								<Typography variant="h6" color="white" className="text-sm my-auto">
-									{currentUser?.displayName || userName}
-								</Typography>
-							</>
-						)}
+						
+						<div className="inline-flex ">
+							{currentUser?.displayName && (
+								<>
+									<IconButton
+										variant="text"
+										color="white"
+										className="h-5 w-5 my-auto"
+									>
+										<UserIcon className="h-4 w-4 " />
+									</IconButton>
+									<Typography
+										variant="h6"
+										color="white"
+										className="text-sm my-auto"
+									>
+										{currentUser?.displayName || userName}
+									</Typography>
+								</>
+							)}
 						</div>
 						<div className="flex items-center gap-4">
 							<LogButton />

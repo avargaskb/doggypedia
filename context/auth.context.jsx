@@ -2,6 +2,11 @@
 import { createContext, useContext, useState, useEffect } from 'react';
 import { auth } from '@/lib/firebase';
 import {
+	getFirestore,
+	doc,
+	onSnapshot,
+} from 'firebase/firestore';
+import {
 	signInWithEmailAndPassword,
 	createUserWithEmailAndPassword,
 	signOut,
@@ -9,8 +14,20 @@ import {
 	signInWithPopup,
 	GoogleAuthProvider,
 } from 'firebase/auth';
+import { initializeApp } from 'firebase/app';
 
 const AuthContext = createContext();
+const firebaseConfig = {
+	apiKey: process.env.NEXT_PUBLIC_APIFB_KEY,
+	authDomain: process.env.NEXT_PUBLIC_AUTHDOMAIN,
+	projectId: process.env.NEXT_PUBLIC_PROJECTID,
+	storageBucket: process.env.NEXT_PUBLIC_STORAGEBUCKET,
+	messagingSenderId: process.env.NEXT_PUBLIC_MESSAGINGSENDERID,
+	appId: process.env.NEXT_PUBLIC_APPID,
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
 
 const provider = new GoogleAuthProvider();
 provider.setCustomParameters({
@@ -41,11 +58,6 @@ export function AuthProvider({ children }) {
 		return signOut(auth);
 	};
 
-	const favoriteDog = (breedName) => {
-		setFavoriteBreed(breedName);
-	};
-	
-
 	useEffect(() => {
 		const unsubscribe = onAuthStateChanged(auth, async (user) => {
 			setCurrentUser(user);
@@ -55,6 +67,17 @@ export function AuthProvider({ children }) {
 		return unsubscribe;
 	}, []);
 
+	useEffect(() => {
+		if(currentUser?.uid) {
+			const userDocRef = doc(db, 'users', currentUser.uid);
+			onSnapshot(userDocRef, (doc) => {
+				const user = doc.data();
+				const favorite = user.favoriteBreed;
+				setFavoriteBreed(favorite);
+			});
+		}
+	}, [currentUser]);
+
 	const value = {
 		currentUser,
 		logIn,
@@ -62,9 +85,9 @@ export function AuthProvider({ children }) {
 		signUp,
 		logOut,
 		favoriteBreed,
-		favoriteDog,
+		setFavoriteBreed,
 		userName,
-		setUserName
+		setUserName,
 	};
 
 	return (

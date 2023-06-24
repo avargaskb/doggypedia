@@ -35,7 +35,7 @@ export default function SignUp() {
 			setUserName(displayName);
 			createUserDocumentFromAuth(user, { displayName });
 			navigate.replace('/breed-viewer');
-		} catch (err: any) {
+		} catch (err:any) {
 			if (err.code === 'auth/email-already-in-use') {
 				setError('Cannot create user, email already in use');
 			}

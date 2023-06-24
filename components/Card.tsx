@@ -1,5 +1,4 @@
 'use client';
-import { useEffect } from 'react';
 import { useAuth } from '../context/auth.context';
 import {
 	Card,
@@ -13,7 +12,7 @@ import Spinner from './Spinner';
 import { updateFavorite } from '@/lib/firebase';
 
 type Breed = {
-	id?: number | undefined;
+	id?: string | undefined;
 	name: string;
 	temperament?: string;
 	bred_for?: string;
@@ -25,9 +24,10 @@ type Dog = {
 };
 
 type CardProps = {
-	loading: any;
-	updateDog: (dog: any) => any;
+	loading: boolean
+	updateDog: (dog: string|undefined) =>void;
 	dog: Dog;
+	
 };
 
 export default function BreedCard({
@@ -35,20 +35,12 @@ export default function BreedCard({
 	updateDog,
 	loading,
 }: CardProps): JSX.Element {
-	const { favoriteDog, favoriteBreed, currentUser } = useAuth();
+	const { currentUser, setFavoriteBreed } = useAuth();
 
 	const handleFavorite = (breedName: string) => {
-		favoriteDog(breedName);
-		updateFavorite(breedName, currentUser)
+		updateFavorite(breedName, currentUser);
+		setFavoriteBreed(breedName);
 	};
-
-	// useEffect(() => {
-	// 	updateFavorite(currentUser);
-	// }, [favoriteBreed]);
-
-	useEffect(() => {
-		console.log(favoriteBreed);
-	}, [favoriteBreed]);
 
 	if (loading) return <Spinner />;
 
@@ -56,13 +48,13 @@ export default function BreedCard({
 		<Card
 			shadow
 			color="white"
-			className="mt-10 lg:mt-[60px] mx-auto w-[300px] md:w-[450px] lg:w-[575px]"
+			className=" mt-10 lg:mt-[60px] mx-auto w-[300px] md:w-[450px] lg:w-[575px]"
 			onClick={() => updateDog(dog.breed.id)}
 		>
 			<CardHeader
 				color="transparent"
 				shadow
-				className="relative h-[200px] md:h-[300px] lg:h-[500px]"
+				className="relative h-[200px] md:h-[300px] lg:h-[480px]"
 			>
 				<div
 					className="w-full h-full absolute"

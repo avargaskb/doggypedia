@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import { useAuth } from '../../context/auth.context';
 import { useRouter } from 'next/navigation';
-import Image from 'next/image';
+// import Image from 'next/image';
 import {
 	Card,
 	CardHeader,
@@ -18,13 +18,14 @@ export default function LogIn() {
 	const [password, setPassword] = useState('');
 	const [error, setError] = useState('');
 
-	const { logIn, logInWithGooglePopup, createUserDocumentFromAuth } = useAuth();
+	const { logIn, logInWithGooglePopup } = useAuth();
 	const navigate = useRouter();
 
-	const logInWithGoogle = async () => {
-		 await logInWithGooglePopup();
-		navigate.replace('/breed-viewer');
-	};
+	//login whit google
+	// const logInWithGoogle = async () => {
+	// 	 await logInWithGooglePopup();
+	// 	navigate.replace('/breed-viewer');
+	// };
 
 	const logInHandler = async (e: React.FormEvent<HTMLButtonElement>) => {
 		if (!password || !email) {
@@ -61,7 +62,7 @@ export default function LogIn() {
 							type="email"
 							label="Email"
 							size="lg"
-							id='email'
+							id="email"
 							value={email}
 							onChange={(e) => setEmail(e.target.value)}
 						/>
@@ -69,7 +70,7 @@ export default function LogIn() {
 							color="gray"
 							type="password"
 							label="Password"
-							id='password'
+							id="password"
 							size="lg"
 							value={password}
 							onChange={(e) => setPassword(e.target.value)}
@@ -86,8 +87,8 @@ export default function LogIn() {
 					>
 						Log In
 					</Button>
-
-					<Button
+					{/* login whit google */}
+					{/* <Button
 						fullWidth
 						variant="outlined"
 						color="orange"
@@ -102,8 +103,7 @@ export default function LogIn() {
 							className="h-5 w-5"
 						/>
 						Continue with Google
-					</Button>
-
+					</Button> */}
 					<Typography variant="small" className="mt-6 flex justify-center">
 						Don't have an account?
 						<Typography
