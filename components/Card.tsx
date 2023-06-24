@@ -45,6 +45,9 @@ export default function BreedCard({
 	if (loading) return <Spinner />;
 
 	return (
+		<>
+		
+		{dog.image && 
 		<Card
 			shadow
 			color="white"
@@ -93,5 +96,7 @@ export default function BreedCard({
 				)}
 			</CardFooter>
 		</Card>
+		}
+	</>
 	);
 }
