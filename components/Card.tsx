@@ -25,7 +25,7 @@ type Dog = {
 
 type CardProps = {
 	loading: boolean
-	updateDog: (dog: string|undefined) =>void;
+	updateDog: (dog: string) =>void;
 	dog: Dog;
 	
 };
@@ -45,14 +45,14 @@ export default function BreedCard({
 	if (loading) return <Spinner />;
 
 	return (
-		<>
+	
 		
-		{dog.image && 
+		
 		<Card
 			shadow
 			color="white"
 			className=" mt-10 lg:mt-[60px] mx-auto w-[300px] md:w-[450px] lg:w-[575px]"
-			onClick={() => updateDog(dog.breed.id)}
+			onClick={() => updateDog(dog.breed.id!)}
 		>
 			<CardHeader
 				color="transparent"
@@ -96,7 +96,6 @@ export default function BreedCard({
 				)}
 			</CardFooter>
 		</Card>
-		}
-	</>
+	
 	);
 }
