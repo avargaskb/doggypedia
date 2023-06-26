@@ -9,7 +9,7 @@ export default function Home() {
 	return (
 		<div className='h-screen flex items-center justify-center '>
 	
-		<div className="relative h-[300px] w-[275px] md:h-[510px] md:w-[480px] lg:h-[700px] lg:w-[670px] shadow-2xl ">
+		<div className="relative h-[300px] w-[275px] md:h-[510px] md:w-[480px] lg:h-[670px] lg:w-[650px] shadow-2xl ">
 			<img
 				className="h-full w-full rounded-xl"
 				src="/puppyFigo.jpg"

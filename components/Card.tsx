@@ -54,7 +54,7 @@ export default function BreedCard({
 		<Card
 			shadow
 			color="white"
-			className=" mt-10 lg:mt-[60px] mx-auto w-[300px] md:w-[400px] lg:w-[650px]"
+			className=" mt-10 lg:mt-[60px] mx-auto w-[320px]  lg:w-[650px]"
 			onClick={() => updateDog(dog.breed.id!)}
 		>
 			<CardHeader
@@ -86,7 +86,8 @@ export default function BreedCard({
 				<p className="text-sm">{dog.breed.temperament}</p>
 			</CardBody>
 			<CardFooter className="pt-2 flex justify-center">
-				{dog.breed.name !== 'Random' && (
+				<>
+				{currentUser && dog.breed.name !== 'Random'  &&(
 					<Button
 						variant="outlined"
 						size="sm"
@@ -97,6 +98,7 @@ export default function BreedCard({
 						Select as Favorite Breed
 					</Button>
 				)}
+				</>
 			</CardFooter>
 		</Card>
 	
