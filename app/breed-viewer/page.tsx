@@ -7,8 +7,7 @@ import getDog from '../../api/getDog';
 import { useAuth } from '@/context/auth.context';
 
 const initialDog = {
-	image:
-		'',
+	image: '',
 	breed: {
 		id: '',
 		name: '',
