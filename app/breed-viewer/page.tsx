@@ -8,10 +8,10 @@ import { useAuth } from '@/context/auth.context';
 
 const initialDog = {
 	image:
-		'https://images.unsplash.com/photo-1505628346881-b72b27e84530?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80',
+		'',
 	breed: {
-		id: '9999999999',
-		name: 'Perrin',
+		id: '',
+		name: '',
 	},
 };
 
