@@ -24,7 +24,7 @@ export async function GET(request: NextRequest) {
 
 		if (!breed) {
 			breed = {
-				id: 0,
+				id: "0",
 				name: 'Random',
 			};
 		}
