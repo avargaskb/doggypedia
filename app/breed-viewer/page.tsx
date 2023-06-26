@@ -17,7 +17,7 @@ const initialDog = {
 export default function BreedViewer() {
 	const [dog, setDog] = useState(initialDog);
 	const [loading, setLoading] = useState(true);
-	const { favoriteBreed } = useAuth();
+	const { favoriteBreed, currentUser } = useAuth();
 
 	useEffect(() => {
 		updateDog();
@@ -33,13 +33,21 @@ export default function BreedViewer() {
 
 	return (
 		<ThemeProvider>
-			{!!favoriteBreed && (
-				<div className="mt-16 md:mt-[90px] md:mb-10 text-center text-white">
-					<h2>My favorite breed: {favoriteBreed}</h2>
+			<>
+				<div className="md:mt-28 mb-10 md:flex md:flex-row justify-evenly">
+					<div>
+						{!!favoriteBreed  && currentUser && (
+							<div className="mt-16 md:mt-[90px] md:mb-10 text-center text-white text-xl">
+								<span>My favorite breed: {favoriteBreed}</span>
+							</div>
+						)}
+						<SelectBreed updateDog={updateDog} />
+					</div>
+					<div>
+						<BreedCard dog={dog} updateDog={updateDog} loading={loading} className='' />
+					</div>
 				</div>
-			)}
-			<SelectBreed updateDog={updateDog} />
-			<BreedCard dog={dog} updateDog={updateDog} loading={loading} />
+			</>
 		</ThemeProvider>
 	);
 }

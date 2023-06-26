@@ -27,6 +27,8 @@ type CardProps = {
 	loading: boolean
 	updateDog: (dog: string) =>void;
 	dog: Dog;
+	className: string
+	
 	
 };
 
@@ -34,6 +36,7 @@ export default function BreedCard({
 	dog,
 	updateDog,
 	loading,
+	
 }: CardProps): JSX.Element {
 	const { currentUser, setFavoriteBreed } = useAuth();
 
@@ -51,7 +54,7 @@ export default function BreedCard({
 		<Card
 			shadow
 			color="white"
-			className=" mt-10 lg:mt-[60px] mx-auto w-[300px] md:w-[450px] lg:w-[575px]"
+			className=" mt-10 lg:mt-[60px] mx-auto w-[300px] md:w-[400px] lg:w-[650px]"
 			onClick={() => updateDog(dog.breed.id!)}
 		>
 			<CardHeader
