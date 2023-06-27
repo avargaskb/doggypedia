@@ -1,11 +1,7 @@
 'use client';
 import { createContext, useContext, useState, useEffect } from 'react';
 import { auth } from '@/lib/firebase';
-import {
-	getFirestore,
-	doc,
-	onSnapshot,
-} from 'firebase/firestore';
+import { getFirestore, doc, onSnapshot } from 'firebase/firestore';
 import {
 	signInWithEmailAndPassword,
 	createUserWithEmailAndPassword,
@@ -68,12 +64,13 @@ export function AuthProvider({ children }) {
 	}, []);
 
 	useEffect(() => {
-		if(currentUser?.uid) {
+		if (favoriteBreed && currentUser?.uid) {
 			const userDocRef = doc(db, 'users', currentUser.uid);
 			onSnapshot(userDocRef, (doc) => {
 				const user = doc.data();
 				const favorite = user.favoriteBreed;
-				setFavoriteBreed(favorite);
+					setFavoriteBreed(favorite);
+				
 			});
 		}
 	}, [currentUser]);

@@ -20,7 +20,7 @@ export default function SignUp() {
 	const [displayName, setDisplayName] = useState('');
 	const [error, setError] = useState('');
 
-	const { signUp, setUserName } = useAuth();
+	const { signUp, setUserName, setFavoriteBreed } = useAuth();
 	const navigate = useRouter();
 
 	const registerUser = async (e: React.FormEvent<HTMLButtonElement>) => {
@@ -33,7 +33,9 @@ export default function SignUp() {
 			const { user } = await signUp(email, password);
 			updateProfile(user, { displayName });
 			setUserName(displayName);
+			setFavoriteBreed('')
 			createUserDocumentFromAuth(user, { displayName });
+
 			navigate.replace('/breed-viewer');
 		} catch (err:any) {
 			if (err.code === 'auth/email-already-in-use') {

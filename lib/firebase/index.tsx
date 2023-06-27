@@ -49,7 +49,7 @@ export const createUserDocumentFromAuth = async (
 };
 
 export const updateFavorite = async (
-	breedName: string| undefined,
+	breedName: string,
 	currentUser: { uid: string }
 ) => {
 	const userDocRef = doc(db, 'users', currentUser.uid);
