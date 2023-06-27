@@ -40,7 +40,7 @@ export default function BreedCard({
 }: CardProps): JSX.Element {
 	const { currentUser, setFavoriteBreed } = useAuth();
 
-	const handleFavorite = (breedName: string) => {
+	const handleFavorite = (breedName: string|undefined) => {
 		updateFavorite(breedName, currentUser);
 		setFavoriteBreed(breedName);
 	};
