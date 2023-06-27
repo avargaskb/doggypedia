@@ -54,7 +54,7 @@ export default function BreedCard({
 		<Card
 			shadow
 			color="white"
-			className=" mt-10 lg:mt-[60px] mx-auto w-[320px]  lg:w-[650px]"
+			className=" mt-10 lg:mt-[60px] mx-auto w-[320px]  lg:w-[450px]"
 			onClick={() => updateDog(dog.breed.id!)}
 		>
 			<CardHeader
