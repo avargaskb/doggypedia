@@ -25,7 +25,7 @@ const initialBreeds: Breed[] = [
 	},
 ];
 
-export default function SelectBreed({ updateDog }: { updateDog:any}) {
+export default function SelectBreed({ updateDog }: { updateDog:(value:string)=>void}) {
 	const [breeds, setBreeds] = useState(initialBreeds);
 	const [error, setError] = useState('');
 
@@ -43,14 +43,14 @@ export default function SelectBreed({ updateDog }: { updateDog:any}) {
 			});
 	};
 
-	const handleChange = (value: string | undefined) => {
+	const handleChange = (value: string ) => {
 		updateDog(value);
 	};
 
 	return (
 		<div className="w-[265px] xl:w-[475px] mx-auto mt-14 md:mt-20  mb-14 md:mb-20 lg:mb-[80px]  ">
 			<Select
-				onChange={(value) => handleChange(value)}
+				onChange={(value) => handleChange(value!)}
 				arrow={<span style={{ color: 'white' }}>&#x25BD;</span>}
 				color="orange"
 				label="Select Breed"
