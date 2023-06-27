@@ -34,7 +34,7 @@ export default function Navbar() {
 									<IconButton
 										variant="text"
 										color="white"
-										className="h-5 w-5 my-auto"
+										className="h-5 w-5 my-auto cursor-default"
 									>
 										<UserIcon className="h-4 w-4 " />
 									</IconButton>

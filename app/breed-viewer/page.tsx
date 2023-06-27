@@ -34,7 +34,7 @@ export default function BreedViewer() {
 	return (
 		<ThemeProvider>
 			<>
-				<div className="md:mt-28 mb-10 md:flex md:flex-row justify-evenly">
+				<div className="mt-2 md:mt-28 mb-10 md:flex md:flex-row justify-evenly">
 					<div>
 						{!!favoriteBreed  && currentUser && (
 							<div className="mt-16 md:mt-[90px] md:mb-10 text-center text-white text-xl">
