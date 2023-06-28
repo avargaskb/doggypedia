@@ -29,7 +29,7 @@ export default function Navbar() {
 					<div className="flex items-center justify-between gap-4">
 						
 						<div className="inline-flex ">
-							{currentUser?.displayName && (
+							{(userName ||currentUser?.displayName) && (
 								<>
 									<IconButton
 										variant="text"
@@ -43,7 +43,7 @@ export default function Navbar() {
 										color="white"
 										className="text-sm my-auto"
 									>
-										{currentUser?.displayName || userName}
+										{userName || currentUser?.displayName }
 									</Typography>
 								</>
 							)}
