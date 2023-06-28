@@ -1,4 +1,5 @@
 'use client';
+import { FirebaseError } from 'firebase/app';
 import { useState } from 'react';
 import { useAuth } from '../../context/auth.context';
 import { useRouter } from 'next/navigation';
@@ -33,22 +34,21 @@ export default function SignUp() {
 			const { user } = await signUp(email, password);
 			updateProfile(user, { displayName });
 			setUserName(displayName);
-			setFavoriteBreed('')
+			setFavoriteBreed('');
 			createUserDocumentFromAuth(user, { displayName });
 
 			navigate.replace('/breed-viewer');
-		} catch (err:any) {
-			if (err.code === 'auth/email-already-in-use') {
-				setError('Cannot create user, email already in use');
-			}
-			if (err.code === 'auth/invalid-email') {
-				setError('Please enter a valid email');
-			}
-			if (err.code === 'auth/weak-password') {
-				setError('Password should be at least 6 characters');
-			} else {
-				setError('Something went wrong, please try again!');
-			}
+		} catch (err) {
+			if (err instanceof FirebaseError)
+				if (err.code === 'auth/email-already-in-use') {
+					setError('Cannot create user, email already in use');
+				} else if (err.code === 'auth/invalid-email') {
+					setError('Please enter a valid email');
+				} else if (err.code === 'auth/weak-password') {
+					setError('Password should be at least 6 characters');
+				} else {
+					setError('Something went wrong, please try again!');
+				}
 		}
 		return;
 	};
@@ -71,14 +71,14 @@ export default function SignUp() {
 							color="gray"
 							label="Username"
 							size="lg"
-							id='username'
+							id="username"
 							value={displayName}
 							onChange={(e) => setDisplayName(e.target.value)}
 						/>
 						<Input
 							color="gray"
 							label="Email"
-							id='email'
+							id="email"
 							size="lg"
 							value={email}
 							onChange={(e) => setEmail(e.target.value)}
@@ -87,7 +87,7 @@ export default function SignUp() {
 							color="gray"
 							type="password"
 							label="Password"
-							id='password'
+							id="password"
 							size="lg"
 							value={password}
 							onChange={(e) => setPassword(e.target.value)}
