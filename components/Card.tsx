@@ -24,19 +24,15 @@ type Dog = {
 };
 
 type CardProps = {
-	loading: boolean
-	updateDog: (dog: string) =>void;
+	loading: boolean;
+	updateDog: (dog: string) => void;
 	dog: Dog;
-	className: string
-	
-	
 };
 
 export default function BreedCard({
 	dog,
 	updateDog,
 	loading,
-	
 }: CardProps): JSX.Element {
 	const { currentUser, setFavoriteBreed } = useAuth();
 
@@ -48,9 +44,6 @@ export default function BreedCard({
 	if (loading) return <Spinner />;
 
 	return (
-	
-		
-		
 		<Card
 			shadow
 			color="white"
@@ -87,20 +80,19 @@ export default function BreedCard({
 			</CardBody>
 			<CardFooter className="pt-2 flex justify-center">
 				<>
-				{currentUser && dog.breed.name !== 'Random'  &&(
-					<Button
-						variant="outlined"
-						size="sm"
-						color="deep-orange"
-						className=""
-						onClick={() => handleFavorite(dog.breed.name)}
-					>
-						Select as Favorite Breed
-					</Button>
-				)}
+					{currentUser && dog.breed.name !== 'Random' && (
+						<Button
+							variant="outlined"
+							size="sm"
+							color="deep-orange"
+							className=""
+							onClick={() => handleFavorite(dog.breed.name)}
+						>
+							Select as Favorite Breed
+						</Button>
+					)}
 				</>
 			</CardFooter>
 		</Card>
-	
 	);
 }

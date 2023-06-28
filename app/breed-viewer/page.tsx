@@ -36,7 +36,7 @@ export default function BreedViewer() {
 			<>
 				<div className="mt-2 md:mt-28 mb-10 md:flex md:flex-row justify-evenly">
 					<div>
-						{!!favoriteBreed  && currentUser && (
+						{(!!favoriteBreed  && currentUser) && (
 							<div className="mt-16 md:mt-[90px] md:mb-10 text-center text-white text-xl">
 								<span>My favorite breed: {favoriteBreed}</span>
 							</div>
@@ -44,7 +44,7 @@ export default function BreedViewer() {
 						<SelectBreed updateDog={updateDog} />
 					</div>
 					<div>
-						<BreedCard dog={dog} updateDog={updateDog} loading={loading} className='' />
+						<BreedCard dog={dog} updateDog={updateDog} loading={loading}  />
 					</div>
 				</div>
 			</>
